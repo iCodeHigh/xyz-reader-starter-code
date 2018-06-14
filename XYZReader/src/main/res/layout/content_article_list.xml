@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingBottom="28dp"
+            android:paddingBottom="@dimen/vertical_margin"
+            android:paddingTop="@dimen/vertical_margin"
             android:paddingEnd="@dimen/horizontal_margin"
             android:paddingStart="@dimen/horizontal_margin"
             android:scrollbarStyle="outsideOverlay" />
