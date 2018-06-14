@@ -112,8 +112,6 @@ public class ArticleListActivity extends AppCompatActivity implements
         GridLayoutManager gridLayoutManager =
                 new GridLayoutManager(this, columnCount, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-//        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
-//        mRecyclerView.addItemDecoration(itemDecoration);
     }
 
     @Override
@@ -180,10 +178,6 @@ public class ArticleListActivity extends AppCompatActivity implements
                                 + mCursor.getString(ArticleLoader.Query.AUTHOR)));
             }
             Picasso.get().load(mCursor.getString(ArticleLoader.Query.THUMB_URL)).into(holder.thumbnailView);
-//            holder.thumbnailView.setImageUrl(mCursor.getString(ArticleLoader.Query.THUMB_URL)
-//                    mCursor.getString(ArticleLoader.Query.THUMB_URL),
-//                    ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
-//            holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
         }
 
         @Override

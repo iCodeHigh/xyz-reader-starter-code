@@ -12,8 +12,6 @@
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/horizontal_margin"
-        android:layout_marginStart="@dimen/horizontal_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,8 +23,8 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingBottom="28dp"
-            android:paddingLeft="@dimen/list_side_margin"
-            android:paddingRight="@dimen/list_side_margin"
+            android:paddingEnd="@dimen/horizontal_margin"
+            android:paddingStart="@dimen/horizontal_margin"
             android:scrollbarStyle="outsideOverlay" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
