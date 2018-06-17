@@ -2,6 +2,7 @@ package com.example.xyzreader.ui;
 
 
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.example.xyzreader.data.ItemsContract;
  */
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
+    public static final String TRANSITION_NAME = "TRANSITION_NAME";
 
     private Cursor mCursor;
     private long mStartId;
@@ -29,13 +31,18 @@ public class ArticleDetailActivity extends AppCompatActivity
     private MyPagerAdapter mPagerAdapter;
     private ViewPager.SimpleOnPageChangeListener mOnPageChangeListener;
 
+    private String mTransitionName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            supportPostponeEnterTransition();
+        }
         if (savedInstanceState == null) {
             if (getIntent() != null && getIntent().getData() != null) {
                 mStartId = ItemsContract.Items.getItemId(getIntent().getData());
+                mTransitionName = getIntent().getStringExtra(TRANSITION_NAME);
             }
         }
 
@@ -105,7 +112,12 @@ public class ArticleDetailActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int position) {
             mCursor.moveToPosition(position);
-            return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID));
+            if (mCursor.getLong(ArticleLoader.Query._ID) == mStartId) {
+                return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID), mTransitionName);
+            } else {
+                return ArticleDetailFragment.newInstance(mCursor.getLong(ArticleLoader.Query._ID), null);
+            }
+
         }
 
         @Override

@@ -3,6 +3,7 @@ package com.example.xyzreader.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -11,8 +12,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -56,6 +60,8 @@ public class ArticleDetailFragment extends Fragment implements
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
     private Toolbar mToolbar;
 
+    private String mTransitionName;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -63,8 +69,11 @@ public class ArticleDetailFragment extends Fragment implements
     public ArticleDetailFragment() {
     }
 
-    public static ArticleDetailFragment newInstance(long itemId) {
+    public static ArticleDetailFragment newInstance(long itemId, String transitionName) {
         Bundle arguments = new Bundle();
+        if (!TextUtils.isEmpty(transitionName)) {
+            arguments.putString(ArticleDetailActivity.TRANSITION_NAME, transitionName);
+        }
         arguments.putLong(ARG_ITEM_ID, itemId);
         ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(arguments);
@@ -75,9 +84,15 @@ public class ArticleDetailFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null && getArguments().containsKey(ARG_ITEM_ID)) {
-            mItemId = getArguments().getLong(ARG_ITEM_ID);
+        if (getArguments() != null) {
+            if (getArguments().containsKey(ARG_ITEM_ID)) {
+                mItemId = getArguments().getLong(ARG_ITEM_ID);
+            }
+            if (getArguments().containsKey(ArticleDetailActivity.TRANSITION_NAME)) {
+                mTransitionName = getArguments().getString((ArticleDetailActivity.TRANSITION_NAME));
+            }
         }
+
 
         setHasOptionsMenu(true);
     }
@@ -169,8 +184,34 @@ public class ArticleDetailFragment extends Fragment implements
                         outputFormat.format(publishedDate) + " " + mCursor.getString(ArticleLoader.Query.AUTHOR)));
 
             }
-            bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)));
-            Picasso.get().load(mCursor.getString(ArticleLoader.Query.PHOTO_URL)).into(mPhotoView);
+//            bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)));
+            if (TextUtils.isEmpty(mTransitionName)) {
+                Picasso.get().load(mCursor.getString(ArticleLoader.Query.PHOTO_URL)).into(mPhotoView);
+            } else {
+                ViewCompat.setTransitionName(mPhotoView, mTransitionName);
+                Picasso.get().load(mCursor.getString(ArticleLoader.Query.PHOTO_URL)).into(mPhotoView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            if (getActivity() != null) {
+                                getActivity().supportStartPostponedEnterTransition();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            if (getActivity() != null) {
+                                getActivity().supportStartPostponedEnterTransition();
+                            }
+                        }
+                    }
+
+
+                });
+
+            }
 
             appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
                 boolean isShow = true;
@@ -184,7 +225,7 @@ public class ArticleDetailFragment extends Fragment implements
                     if (scrollRange + verticalOffset == 0) {
                         collapsingToolbarLayout.setTitle(title);
                         isShow = true;
-                    } else if(isShow) {
+                    } else if (isShow) {
                         collapsingToolbarLayout.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
                         isShow = false;
                     }
