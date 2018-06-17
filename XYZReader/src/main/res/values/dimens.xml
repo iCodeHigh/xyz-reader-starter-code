@@ -16,6 +16,8 @@
     <dimen name="sheet_text_scrim_height_bottom">88dp</dimen>
     <dimen name="title_layout_height">88dp</dimen>
     <dimen name="appbar_elevation">4dp</dimen>
+    <dimen name="margin_bottom">16dp</dimen>
+    <dimen name="margin_top">16dp</dimen>
 
 
 </resources>
