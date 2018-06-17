@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -50,7 +51,8 @@ public class ArticleDetailFragment extends Fragment implements
     // Use default locale format
     private DateFormat outputFormat = DateFormat.getDateTimeInstance();
     // Most time functions can only handle 1902 - 2037
-    private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2,1,1);
+    private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
+    private Toolbar mToolbar;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -93,6 +95,16 @@ public class ArticleDetailFragment extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article, container, false);
+        mToolbar = mRootView.findViewById(R.id.toolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null) {
+                    getActivity().onBackPressed();
+                }
+            }
+        });
         mPhotoView = mRootView.findViewById(R.id.photo);
 
 
