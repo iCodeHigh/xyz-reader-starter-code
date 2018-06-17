@@ -101,6 +101,7 @@
             android:layout_marginTop="@dimen/margin_top"
             android:autoLink="web"
             android:linksClickable="true"
+            android:paddingTop="16dp"
             android:textColor="@android:color/black" />
 
     </android.support.v4.widget.NestedScrollView>
@@ -109,7 +110,7 @@
         android:id="@+id/share_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
         android:contentDescription="@string/action_share"
         android:focusable="true"
