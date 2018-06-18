@@ -118,7 +118,7 @@ public class ArticleDetailFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
-                    getActivity().onBackPressed();
+                    getActivity().finish();
                 }
             }
         });
@@ -163,7 +163,7 @@ public class ArticleDetailFragment extends Fragment implements
         AppBarLayout appBarLayout = mRootView.findViewById(R.id.app_bar);
         TextView titleView = mRootView.findViewById(R.id.article_title);
         TextView bylineView = mRootView.findViewById(R.id.article_byline);
-        TextView bodyView = mRootView.findViewById(R.id.article_body);
+        final TextView bodyView = mRootView.findViewById(R.id.article_body);
 
 
         if (mCursor != null) {
@@ -184,7 +184,8 @@ public class ArticleDetailFragment extends Fragment implements
                         outputFormat.format(publishedDate) + " " + mCursor.getString(ArticleLoader.Query.AUTHOR)));
 
             }
-//            bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY)));
+
+            bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).subSequence(0, 300).toString().replaceAll("(\r\n|\n)", "<br />")));
             if (TextUtils.isEmpty(mTransitionName)) {
                 Picasso.get().load(mCursor.getString(ArticleLoader.Query.PHOTO_URL)).into(mPhotoView);
             } else {
