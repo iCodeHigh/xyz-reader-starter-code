@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,6 +63,7 @@ public class ArticleDetailFragment extends Fragment implements
     private Toolbar mToolbar;
 
     private String mTransitionName;
+    private FloatingActionButton mFabButton;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -126,7 +129,8 @@ public class ArticleDetailFragment extends Fragment implements
         mPhotoView = mRootView.findViewById(R.id.photo);
 
 
-        mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
+        mFabButton = mRootView.findViewById(R.id.share_fab);
+        mFabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (getActivity() != null) {
@@ -158,6 +162,15 @@ public class ArticleDetailFragment extends Fragment implements
         if (mRootView == null) {
             return;
         }
+
+        FrameLayout titleByView = mRootView.findViewById(R.id.title_by_Container);
+        titleByView.setAlpha(0f);
+        titleByView.setVisibility(View.VISIBLE);
+        titleByView.animate().setDuration(600).alpha(1f);
+
+        mFabButton.setAlpha(0f);
+        mFabButton.setVisibility(View.VISIBLE);
+        mFabButton.animate().setDuration(300).alpha(1f);
 
         final CollapsingToolbarLayout collapsingToolbarLayout = mRootView.findViewById(R.id.toolbar_layout);
         AppBarLayout appBarLayout = mRootView.findViewById(R.id.app_bar);
