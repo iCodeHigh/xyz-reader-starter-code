@@ -14,6 +14,13 @@
     <dimen name="marging_item_bottom">8dp</dimen>
     <dimen name="marging_item_side">4dp</dimen>
     <dimen name="marging_item_top">8dp</dimen>
+    <dimen name="padding_title">16dp</dimen>
+    <dimen name="padding_top_article_text">16dp</dimen>
+    <dimen name="marging_article_text">16dp</dimen>
+    <dimen name="tablet_articlet_card_width">500dp</dimen>
+    <dimen name="tablet_article_card_margin_top">-180dp</dimen>
+    <dimen name="tablet_card_elevation">8dp</dimen>
+    <dimen name="tablet_padding_top_card">16dp</dimen>
 
 
 </resources>

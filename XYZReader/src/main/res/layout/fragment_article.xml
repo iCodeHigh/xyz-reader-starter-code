@@ -51,7 +51,7 @@
                     android:background="@color/primaryDarkColor"
                     android:elevation="@dimen/appbar_elevation"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/padding_title">
 
                     <TextView
                         android:id="@+id/article_title"
@@ -102,7 +102,7 @@
             android:layout_marginLeft="@dimen/horizontal_margin"
             android:layout_marginRight="@dimen/horizontal_margin"
             android:layout_marginTop="@dimen/margin_top"
-            android:paddingTop="16dp"
+            android:paddingTop="@dimen/padding_top_article_text"
             android:textColor="@color/primaryTextColor" />
 
     </android.support.v4.widget.NestedScrollView>
