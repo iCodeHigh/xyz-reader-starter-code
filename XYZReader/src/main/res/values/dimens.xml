@@ -10,6 +10,10 @@
     <dimen name="appbar_elevation">4dp</dimen>
     <dimen name="margin_bottom">16dp</dimen>
     <dimen name="margin_top">16dp</dimen>
+    <dimen name="title_marging_top">8dp</dimen>
+    <dimen name="marging_item_bottom">8dp</dimen>
+    <dimen name="marging_item_side">4dp</dimen>
+    <dimen name="marging_item_top">8dp</dimen>
 
 
 </resources>

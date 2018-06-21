@@ -9,10 +9,10 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginBottom="@dimen/marging_item_bottom"
+        android:layout_marginLeft="@dimen/marging_item_side"
+        android:layout_marginRight="@dimen/marging_item_side"
+        android:layout_marginTop="@dimen/marging_item_top">
 
         <ImageView
             android:id="@+id/thumbnail"
@@ -31,7 +31,7 @@
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/title_marging_top"
             android:ellipsize="end"
             android:maxLines="4"
             app:layout_constraintEnd_toEndOf="parent"
